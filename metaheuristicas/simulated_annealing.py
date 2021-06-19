@@ -45,8 +45,13 @@ class SimulatedAnnealing:
         return self.grafo.solucao_corrente, self.grafo.distancia_solucao_corrente
 
 
-if __name__ == '__main__':
-    grafo = Grafo.gerar_grafo('../dados/att48.tsp.txt')
+def main():
+    grafo = Grafo('../dados/att48.tsp.txt')
+    grafo.ler_vertices()
     sa = SimulatedAnnealing(grafo, 7, 0.995, 1e-8, 6000)
     solucao, distancia = sa.run()
     print(distancia)
+
+
+if __name__ == '__main__':
+    main()

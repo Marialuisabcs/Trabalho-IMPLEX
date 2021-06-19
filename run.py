@@ -3,7 +3,8 @@ from utils import Grafo
 import time
 
 if __name__ == '__main__':
-    grafo = Grafo.gerar_grafo('dados/berlin52.tsp.txt')
+    grafo = Grafo('dados/berlin52.tsp.txt')
+    grafo.ler_vertices()
 
     hc = HillClimbing(grafo, max_iter=1000)
     inicio = round(time.time() * 1000)
