@@ -16,16 +16,19 @@ class Vertice:
 
 
 class Grafo:
-    def __init__(self):
+    def __init__(self, arquivo: Union[str, bytes, os.PathLike]):
         self.vertices = []
         self.solucao_corrente: List[Vertice] = []
         self.distancia_solucao_corrente: float = 0
-        self.filename_output: str = ''
+        self.entrada = arquivo
+        self.filename_output: str = f'{self.entrada[:-3]}out'
 
-    @staticmethod
-    def gerar_grafo(arquivo: Union[str, bytes, os.PathLike]):
-        g = Grafo()
-        with open(arquivo, 'r') as f:
+    def ler_vertices(self):
+        """
+        Gera uma lista de vértices a partir do arquivo de entrada.
+        """
+        vertices = []
+        with open(self.entrada, 'r') as f:
             for line in f.readlines():
                 line = line.split(' ')
 
@@ -38,25 +41,42 @@ class Grafo:
                     label, x, y = linha
 
                 v = Vertice(label, x, y)
-                g.vertices.append(v)
+                vertices.append(v)
 
-        g.filename_output = f'{arquivo[:-3]}out'
-        return g
+        self.vertices = vertices
 
     def gerar_solucao_aleatoria(self) -> None:
+        """
+        Embaralha a ordem dos vértices e torna esta a solução corrente
+        """
         solucao = self.vertices.copy()
         random.shuffle(solucao)
         self.solucao_corrente = solucao
 
     def calcula_distancia_solucao_corrente(self) -> None:
+        """
+        Calcula a distância percorrida da solução corrente.
+        """
         self.distancia_solucao_corrente = self.calcula_distancia_total(self.solucao_corrente)
 
     def troca_solucao_corrente(self, solucao, dist_solucao) -> Iterator[List[Vertice]]:
+        """
+        Realiza a troca da atual solução corrente e gera seus vizinhos.
+            :param solucao: nova solução corrente
+            :param dist_solucao: distância da nova solução corrente
+            :return: vizinhos da nova solução corrente
+        """
         self.solucao_corrente = solucao
         self.distancia_solucao_corrente = dist_solucao
         return self.vizinho_generator()
 
     def vizinho_generator(self) -> Iterator[List[Vertice]]:
+        """
+            Gera os vizinhos de uma determinada solução corrente.
+                :return vizinho: Uma lista de vértices com um par de vértices trocados.
+                                O método retorna um viznho por vez.
+
+        """
         for i in range(len(self.solucao_corrente)):
             for j in range(i + 1, len(self.solucao_corrente)):
                 vizinho = self.solucao_corrente.copy()
@@ -99,12 +119,18 @@ class Grafo:
             f.write(linha)
 
     def desenhar_solucao(self, name: str = 'Solução TSP'):
+        """"
+        Desenha em gráfico caminho que é percorrido pela solução corrente
+            :param name: nome dado ao arquivo onde o desenho será salvo
+
+        """
         plt.clf()
+        plt.figure(figsize=(15, 15), dpi=100)
         x, y = [], []
         for vertice in self.solucao_corrente:
             x.append(vertice.x)
             y.append(vertice.y)
-            plt.plot([vertice.x], [vertice.y], marker='o', markersize=3, color="red")
+            plt.plot([vertice.x], [vertice.y], marker='o', markersize=5, color="red")
 
         x.append(self.solucao_corrente[0].x)
         y.append(self.solucao_corrente[0].y)
