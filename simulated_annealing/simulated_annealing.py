@@ -36,10 +36,12 @@ class SimulatedAnnealing:
             if distancia_vizinho < distancia_corrente:
                 self.grafo.solucao_corrente = vizinho
                 self.grafo.distancia_solucao_corrente = distancia_vizinho
+                vizinhos = self.grafo.vizinho_generator()
 
             elif random.random() < self.prob_aceita(distancia_vizinho):
                 self.grafo.solucao_corrente = vizinho
                 self.grafo.distancia_solucao_corrente = distancia_vizinho
+                vizinhos = self.grafo.vizinho_generator()
 
             self.resfria()
             self.i += 1
