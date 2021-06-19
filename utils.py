@@ -1,6 +1,8 @@
 import math
+import os
 import random
-from typing import List, Iterator
+from typing import List, Iterator, Union
+import matplotlib.pyplot as plt
 
 
 class Vertice:
@@ -16,12 +18,12 @@ class Vertice:
 class Grafo:
     def __init__(self):
         self.vertices = []
-        self.solucao_corrente = None
-        self.distancia_solucao_corrente = None
-        self.filename_output = None
+        self.solucao_corrente: List[Vertice] = []
+        self.distancia_solucao_corrente: float = 0
+        self.filename_output: str = ''
 
     @staticmethod
-    def gerar_grafo(arquivo):
+    def gerar_grafo(arquivo: Union[str, bytes, os.PathLike]):
         g = Grafo()
         with open(arquivo, 'r') as f:
             for line in f.readlines():
@@ -29,10 +31,12 @@ class Grafo:
 
                 linha = []
                 for item in line:
-                    if item != '':
-                        linha.append(int(item))
+                    if item not in ('', '\n'):
+                        linha.append(float(item))
 
-                label, x, y = linha
+                if linha:
+                    label, x, y = linha
+
                 v = Vertice(label, x, y)
                 g.vertices.append(v)
 
@@ -93,3 +97,18 @@ class Grafo:
         with open(self.filename_output, 'w') as f:
             linha = f'Distância percorrida: {self.distancia_solucao_corrente}\n'
             f.write(linha)
+
+    def desenhar_solucao(self, name: str = 'Solução TSP'):
+        plt.clf()
+        x, y = [], []
+        for vertice in self.solucao_corrente:
+            x.append(vertice.x)
+            y.append(vertice.y)
+            plt.plot([vertice.x], [vertice.y], marker='o', markersize=3, color="red")
+
+        x.append(self.solucao_corrente[0].x)
+        y.append(self.solucao_corrente[0].y)
+
+        plt.plot(x, y)
+        plt.title(f'{name} Distância percorrida: {round(self.distancia_solucao_corrente, 2)}')
+        plt.savefig(f'{name}.png')

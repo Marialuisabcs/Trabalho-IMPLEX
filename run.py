@@ -3,14 +3,14 @@ from utils import Grafo
 import time
 
 if __name__ == '__main__':
-    entrada = 'dados/att48.tsp.txt'
-    grafo = Grafo.gerar_grafo(entrada)
+    grafo = Grafo.gerar_grafo('dados/berlin52.tsp.txt')
 
     hc = HillClimbing(grafo, max_iter=1000)
     inicio = round(time.time() * 1000)
     _, distancia = hc.run()
     print(f'Tempo do Hill Climbing: {round(time.time() * 1000) - inicio}')
     print(distancia)
+    hc.grafo.desenhar_solucao('HC')
 
     print('='*30)
 
@@ -19,3 +19,4 @@ if __name__ == '__main__':
     _, distancia = sa.run()
     print(f'Tempo do Simulated Annealing: {round(time.time() * 1000) - inicio}')
     print(distancia)
+    sa.grafo.desenhar_solucao('SA')
