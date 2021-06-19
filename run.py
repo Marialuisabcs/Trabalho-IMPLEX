@@ -1,7 +1,22 @@
 from metaheuristicas import HillClimbing, SimulatedAnnealing
 from utils import Grafo
-import time
 import os
+
+
+def is_type(tipo, valor):
+    try:
+        tipo(valor)
+        return True
+    except ValueError:
+        return False
+
+
+def pega_parametro(mensagem, tipo: type = float):
+    param = input(mensagem)
+    while not is_type(tipo, param):
+        param = input('Por favor, digite um valor válido: ')
+
+    return tipo(param)
 
 
 def mostra_metaheuristicas():
@@ -25,18 +40,59 @@ def mostra_arquivos():
     return arquivos
 
 
+def pega_arquivo(arquivos):
+    idx_arquivo = int(input('Digite o número correspondente ao caso de teste desejado: '))
+    if idx_arquivo not in list(range(len(arquivos))):
+        idx_arquivo = input('Por favor, digite uma opção válida: ')
+
+    return arquivos[idx_arquivo]
+
+
+def inicializa():
+    arquivos = mostra_arquivos()
+    print('\n')
+    arquivo = pega_arquivo(arquivos)
+    grafo = Grafo(f'dados/{arquivo}')
+    grafo.ler_vertices()
+
+    return grafo
+
+
 def simulated_annealing():
     print()
     print('\t\t\t\t  ===== Simulated Annealing =====')
-    arquivos = mostra_arquivos()
-    print('\n')
-    arquivo = input('Digite o número correspondente ao arquivo desejado: ')
-    if arquivo not in list(range(len(arquivos))):
-        arquivo = input('Por favor, digite uma opção válida: ')
+
+    grafo = inicializa()
+
+    print()
+    print('===== Simulated Annealing: Definição de parâmetros =====')
+    msg = '(casa decimal separada por .)'
+
+    t_max = pega_parametro(f'Temperatura máxima {msg}: ')
+    tx_resfria = pega_parametro(f'Taxa de resfriamento {msg}: ')
+    t_min = pega_parametro(f'Temperatura mínima {msg}: ')
+    max_iter = pega_parametro(f'Máximo de iterações: ', tipo=int)
+    print()
+
+    sa = SimulatedAnnealing(grafo, t_max, tx_resfria, t_min, max_iter)
+    solucao, distancia = sa.run()
+    print(f'Distância percorrida: {distancia}')
 
 
 def hill_climbing():
-    pass
+    print()
+    print('\t\t\t\t  ===== Hill Climbing =====')
+
+    grafo = inicializa()
+
+    print('===== Hill Climbing: Definição de parâmetros =====')
+
+    max_iter = pega_parametro(f'Máximo de iterações (0 para infinito): ')
+    print()
+
+    hc = HillClimbing(grafo, max_iter)
+    solucao, distancia = hc.run()
+    print(f'Distância percorrida: {distancia}')
 
 
 def main():
@@ -55,23 +111,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    '''
-    grafo = Grafo('dados/berlin52.tsp.txt')
-    grafo.ler_vertices()
-
-    hc = HillClimbing(grafo, max_iter=1000)
-    inicio = round(time.time() * 1000)
-    _, distancia = hc.run()
-    print(f'Tempo do Hill Climbing: {round(time.time() * 1000) - inicio}')
-    print(distancia)
-    hc.grafo.desenhar_solucao('HC', save=True)
-
-    print('='*30)
-
-    sa = SimulatedAnnealing(grafo, t_max=10**10, tx_resfria=0.995, t_min=1e-15, max_iter=10**10)
-    inicio = round(time.time() * 1000)
-    _, distancia = sa.run()
-    print(f'Tempo do Simulated Annealing: {round(time.time() * 1000) - inicio}')
-    print(distancia)
-    sa.grafo.desenhar_solucao('SA', save=True)
-    '''
