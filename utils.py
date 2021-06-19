@@ -47,27 +47,10 @@ class Grafo:
     def calcula_distancia_solucao_corrente(self) -> None:
         self.distancia_solucao_corrente = self.calcula_distancia_total(self.solucao_corrente)
 
-    @staticmethod
-    def gerar_vizinhos(solucao: List[Vertice], gerar_um_vizinho: bool = False) -> List[List[Vertice]]:
-        """
-        Gera vizinhos da solução corrente
-            :param solucao: solução corrente
-            :param gerar_um_vizinho: gera apenas um vizinho. Utilizado no simmulated annealing
-            :return: Lista de listas contendo os vizinhos da solução corrente
-        """
-
-        vizinhos = []
-        for i in range(len(solucao)):
-            for j in range(i + 1, len(solucao)):
-                vizinho = solucao.copy()
-                vizinho[i] = solucao[j]
-                vizinho[j] = solucao[i]
-                vizinhos.append(vizinho)
-
-                if gerar_um_vizinho:
-                    return vizinhos
-
-        return vizinhos
+    def troca_solucao_corrente(self, solucao, dist_solucao) -> Iterator[List[Vertice]]:
+        self.solucao_corrente = solucao
+        self.distancia_solucao_corrente = dist_solucao
+        return self.vizinho_generator()
 
     def vizinho_generator(self) -> Iterator[List[Vertice]]:
         for i in range(len(self.solucao_corrente)):

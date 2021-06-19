@@ -27,15 +27,13 @@ class HillClimbing:
         self.grafo.gerar_solucao_aleatoria()
         self.grafo.calcula_distancia_solucao_corrente()
 
-        vizinho_generator = self.grafo.vizinho_generator()
-        melhor_vizinho, melhor_distancia = self.achar_melhor_vizinho(vizinho_generator)
+        vizinhos = self.grafo.vizinho_generator()
+        melhor_vizinho, melhor_distancia = self.achar_melhor_vizinho(vizinhos)
 
         while melhor_distancia < self.grafo.distancia_solucao_corrente and self.continua():
-            self.grafo.solucao_corrente = melhor_vizinho
-            self.grafo.distancia_solucao_corrente = melhor_distancia
+            vizinhos = self.grafo.troca_solucao_corrente(melhor_vizinho, melhor_distancia)
 
-            vizinho_generator = self.grafo.vizinho_generator()
-            melhor_vizinho, melhor_distancia = self.achar_melhor_vizinho(vizinho_generator)
+            melhor_vizinho, melhor_distancia = self.achar_melhor_vizinho(vizinhos)
             self.i += 1
 
         return self.grafo.solucao_corrente, self.grafo.distancia_solucao_corrente
