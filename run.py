@@ -11,7 +11,7 @@ if __name__ == '__main__':
     _, distancia = hc.run()
     print(f'Tempo do Hill Climbing: {round(time.time() * 1000) - inicio}')
     print(distancia)
-    hc.grafo.desenhar_solucao('HC')
+    hc.grafo.desenhar_solucao('HC', save=True)
 
     print('='*30)
 
@@ -20,4 +20,4 @@ if __name__ == '__main__':
     _, distancia = sa.run()
     print(f'Tempo do Simulated Annealing: {round(time.time() * 1000) - inicio}')
     print(distancia)
-    sa.grafo.desenhar_solucao('SA')
+    sa.grafo.desenhar_solucao('SA', save=True)
