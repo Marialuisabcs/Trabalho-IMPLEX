@@ -1,4 +1,6 @@
-from utils import Grafo
+from typing import List, Iterator, Tuple
+
+from utils import Grafo, Vertice
 
 
 class HillClimbing:
@@ -7,11 +9,16 @@ class HillClimbing:
         self.max_iter = max_iter
         self.i = 0
 
-    def achar_melhor_vizinho(self, vizinho_generator):
-        melhor_vizinho = next(vizinho_generator)
+    def achar_melhor_vizinho(self, vizinhos: Iterator[List[Vertice]]) -> Tuple[List[Vertice], float]:
+        """
+        Descobre o melhor vizinho da lista de vizinhos.
+            :param vizinhos: lista com os vizinhos da solução corrente
+            :return: melhor vizinho encontrado e a sua distância percorrida.
+        """
+        melhor_vizinho = next(vizinhos)
         melhor_distancia = self.grafo.calcula_distancia_total(melhor_vizinho)
 
-        for vizinho in vizinho_generator:
+        for vizinho in vizinhos:
             distancia_vizinho = self.grafo.calcula_distancia_total(vizinho)
 
             if distancia_vizinho < melhor_distancia:
@@ -20,10 +27,18 @@ class HillClimbing:
 
         return melhor_vizinho, melhor_distancia
 
-    def continua(self):
+    def continua(self) -> bool:
+        """
+        Determina se o algoritmo continua a busca por soluções melhores dado o índice da iteração atual.
+        :return: verdadeiro se não houver máximo de iterações ou o índice da itereçao atual for menor que o máximo.
+        """
         return self.i < self.max_iter if self.max_iter else True
 
-    def run(self):
+    def run(self) -> Tuple[List[Vertice], float]:
+        """
+        Executa o algoritmo até achar a solução ótima local ou atingir o limite de iterações.
+        :return: solução ótima local e a distância percorrida.
+        """
         self.grafo.gerar_solucao_aleatoria()
         self.grafo.calcula_distancia_solucao_corrente()
 
