@@ -6,7 +6,7 @@ from utils import Grafo, Vertice
 
 
 class SimulatedAnnealing:
-    def __init__(self, grafo: Grafo, t_max: float, tx_resfria: float, t_min: float, max_iter: float):
+    def __init__(self, grafo: Grafo, t_max: float, tx_resfria: float, t_min: float, max_iter: int):
         self.grafo = grafo
         self.t_atual = t_max
         self.t_max = t_max
