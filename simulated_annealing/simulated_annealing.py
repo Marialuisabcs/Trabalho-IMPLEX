@@ -1,77 +1,54 @@
-import os
 import math
 import random
-from typing import Union
 from utils import Grafo
 
 
 class SimulatedAnnealing:
-    def __init__(self, arquivo: Union[str, bytes, os.PathLike]):
-        self.grafo = Grafo.gerar_grafo(arquivo)
-        self.temperatura_maxima: float = 0
-        self.cooling_ratio: float = 0
-        self.temperatura_minima: float = 0
-        self.temperatura_atual: float = 0
-        self.iter_atual: int = 0
+    def __init__(self, grafo: Grafo, t_max: float, tx_resfria: float, t_min: float, max_iter: float):
+        self.grafo = grafo
+        self.t_atual = t_max
+        self.t_max = t_max
+        self.tx_resfria = tx_resfria
+        self.t_min = t_min
+        self.max_iter = max_iter
+        self.i = 0
 
-    def step_1(self, t_max: float, r: float, t_min: float):
-        self.temperatura_maxima = t_max
-        self.cooling_ratio = r
-        self.temperatura_minima = t_min
-        self.temperatura_atual = t_max
+    def resfria(self):
+        self.t_atual *= self.tx_resfria
+
+    def prob_aceita(self, dist_vizinho):
+        return math.exp(-abs((dist_vizinho - self.grafo.distancia_solucao_corrente) / self.t_atual))
+
+    def run(self):
         self.grafo.gerar_solucao_aleatoria()
         self.grafo.calcula_distancia_solucao_corrente()
 
-    def step_2(self, qtd_iteracoes: int):
         vizinhos = self.grafo.vizinho_generator()
-        continua = True
-        vizinho = next(vizinhos, None)
-        while self.iter_atual < qtd_iteracoes and vizinho:
-            distancia_vizinho = self.grafo.calcula_distancia_total(vizinho)
+        while self.t_atual > self.t_min and self.i < self.max_iter:
+            vizinho = next(vizinhos, None)
+            if not vizinho:
+                vizinhos = self.grafo.vizinho_generator()
+                vizinho = next(vizinhos)
+
+            distancia_vizinho = Grafo.calcula_distancia_total(vizinho)
             distancia_corrente = self.grafo.distancia_solucao_corrente
 
             if distancia_vizinho < distancia_corrente:
                 self.grafo.solucao_corrente = vizinho
                 self.grafo.distancia_solucao_corrente = distancia_vizinho
 
-            elif random.random() < math.exp((distancia_corrente - distancia_vizinho) / self.temperatura_atual):
+            elif random.random() < self.prob_aceita(distancia_vizinho):
                 self.grafo.solucao_corrente = vizinho
                 self.grafo.distancia_solucao_corrente = distancia_vizinho
 
-            vizinho = next(vizinhos, None)
-            self.iter_atual += 1
+            self.resfria()
+            self.i += 1
 
-        if self.iter_atual >= qtd_iteracoes:
-            return self.grafo.solucao_corrente, self.grafo.distancia_solucao_corrente
-
-        print(self.iter_atual, qtd_iteracoes)
-        return None, None
-
-    def run(self, t_max: float, r: float, t_min: float, qtd_iteracoes: int):
-        self.step_1(t_max, r, t_min)
-        self.step_2(qtd_iteracoes)
-
-        print(self.temperatura_atual)
-        self.temperatura_atual *= self.cooling_ratio
-        print(self.temperatura_atual, self.temperatura_minima)
-        if self.temperatura_atual >= self.temperatura_minima:
-            solucao_corrente, distancia_solucao_corrente = self.step_2(qtd_iteracoes)
-            if solucao_corrente and distancia_solucao_corrente:
-                return solucao_corrente, distancia_solucao_corrente
-        else:
-            self.step_1(t_max, r, t_min)
-
-    def proc(self, t_max: float, r: float, t_min: float, qtd_iteracoes: int):
-        tries = 0
-        while tries < qtd_iteracoes:
-            self.grafo.gerar_solucao_aleatoria()
-            self.grafo.calcula_distancia_solucao_corrente()
-
+        return self.grafo.solucao_corrente, self.grafo.distancia_solucao_corrente
 
 
 if __name__ == '__main__':
-    sa = SimulatedAnnealing('../dados/teste.txt')
-    sc, dsc = sa.run(1000, 0.8, 150, 3000)
-    for v in sc:
-        print(v)
-    print(dsc)
+    grafo = Grafo.gerar_grafo('../dados/att48.tsp.txt')
+    sa = SimulatedAnnealing(grafo, 7, 0.995, 1e-8, 6000)
+    solucao, distancia = sa.run()
+    print(distancia)
