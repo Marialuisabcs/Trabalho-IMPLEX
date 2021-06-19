@@ -1,6 +1,6 @@
 import math
 import random
-from typing import List
+from typing import List, Iterator
 
 
 class Vertice:
@@ -69,7 +69,7 @@ class Grafo:
 
         return vizinhos
 
-    def vizinho_generator(self) -> List[Vertice]:
+    def vizinho_generator(self) -> Iterator[List[Vertice]]:
         for i in range(len(self.solucao_corrente)):
             for j in range(i + 1, len(self.solucao_corrente)):
                 vizinho = self.solucao_corrente.copy()
