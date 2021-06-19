@@ -1,5 +1,4 @@
-from hill_climbing.hill_climbing import HillClimbing
-from simulated_annealing.simulated_annealing import SimulatedAnnealing
+from metaheuristicas import HillClimbing, SimulatedAnnealing
 from utils import Grafo
 import time
 
