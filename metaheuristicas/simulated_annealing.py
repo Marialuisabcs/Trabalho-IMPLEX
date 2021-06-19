@@ -1,6 +1,8 @@
 import math
 import random
-from utils import Grafo
+from typing import Tuple, List
+
+from utils import Grafo, Vertice
 
 
 class SimulatedAnnealing:
@@ -14,12 +16,24 @@ class SimulatedAnnealing:
         self.i = 0
 
     def resfria(self):
+        """
+        Reduz a temperatura atual dada a taxa de resfriamento.
+        """
         self.t_atual *= self.tx_resfria
 
-    def prob_aceita(self, dist_vizinho):
+    def prob_aceita(self, dist_vizinho: float) -> float:
+        """
+        Calcula a probabilidade de aceitação de uma solução pior que a corrente.
+            :param dist_vizinho: distância percorrida pelo vizinho.
+            :return: valor da probabilidade.
+        """
         return math.exp(-abs((dist_vizinho - self.grafo.distancia_solucao_corrente) / self.t_atual))
 
-    def run(self):
+    def run(self) -> Tuple[List[Vertice], float]:
+        """
+        Executa o algoritmo até atingir a temperatura mínima ou o limite de iterações.
+            :return: última solução encontrada e a distância percorrida.
+        """
         self.grafo.gerar_solucao_aleatoria()
         self.grafo.calcula_distancia_solucao_corrente()
 

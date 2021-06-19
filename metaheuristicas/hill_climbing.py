@@ -12,7 +12,7 @@ class HillClimbing:
     def achar_melhor_vizinho(self, vizinhos: Iterator[List[Vertice]]) -> Tuple[List[Vertice], float]:
         """
         Descobre o melhor vizinho da lista de vizinhos.
-            :param vizinhos: lista com os vizinhos da solução corrente
+            :param vizinhos: lista com os vizinhos da solução corrente.
             :return: melhor vizinho encontrado e a sua distância percorrida.
         """
         melhor_vizinho = next(vizinhos)

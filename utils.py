@@ -16,16 +16,16 @@ class Vertice:
 
 
 class Grafo:
-    def __init__(self, arquivo: Union[str, bytes, os.PathLike]):
+    def __init__(self, entrada: Union[str, bytes, os.PathLike]):
         self.vertices = []
         self.solucao_corrente: List[Vertice] = []
         self.distancia_solucao_corrente: float = 0
-        self.entrada = arquivo
-        self.filename_output: str = f'{self.entrada[:-3]}out'
+        self.entrada = entrada
+        self.saida: str = f'{self.entrada[:-3]}out'
 
     def ler_vertices(self):
         """
-        Gera uma lista de vértices a partir do arquivo de entrada.
+        Define a lista de vértices atual a partir do arquivo de entrada.
         """
         vertices = []
         with open(self.entrada, 'r') as f:
@@ -47,7 +47,7 @@ class Grafo:
 
     def gerar_solucao_aleatoria(self) -> None:
         """
-        Embaralha a ordem dos vértices e torna esta a solução corrente
+        Embaralha a ordem dos vértices e torna esta a solução corrente.
         """
         solucao = self.vertices.copy()
         random.shuffle(solucao)
@@ -62,9 +62,9 @@ class Grafo:
     def troca_solucao_corrente(self, solucao, dist_solucao) -> Iterator[List[Vertice]]:
         """
         Realiza a troca da atual solução corrente e gera seus vizinhos.
-            :param solucao: nova solução corrente
-            :param dist_solucao: distância da nova solução corrente
-            :return: vizinhos da nova solução corrente
+            :param solucao: nova solução corrente.
+            :param dist_solucao: distância da nova solução corrente.
+            :return: vizinhos da nova solução corrente.
         """
         self.solucao_corrente = solucao
         self.distancia_solucao_corrente = dist_solucao
@@ -72,10 +72,8 @@ class Grafo:
 
     def vizinho_generator(self) -> Iterator[List[Vertice]]:
         """
-            Gera os vizinhos de uma determinada solução corrente.
-                :return vizinho: Uma lista de vértices com um par de vértices trocados.
-                                O método retorna um viznho por vez.
-
+        Gera os vizinhos de uma determinada solução corrente.
+            :return: vizinho uma lista de vértices com um par de vértices trocados.O método retorna um viznho por vez.
         """
         for i in range(len(self.solucao_corrente)):
             for j in range(i + 1, len(self.solucao_corrente)):
@@ -88,9 +86,9 @@ class Grafo:
     def calcula_distancia(a: Vertice, b: Vertice) -> float:
         """
         Calcula a distância euclidiana dos vértices fornecidos.
-            :param a: Vértice a
-            :param b: Vértice b
-            :return: distância euclidiana
+            :param a: vértice a.
+            :param b: vértice b.
+            :return: distância euclidiana.
         """
 
         radicando = ((a.x - b.x) ** 2) + ((a.y - b.y) ** 2)
@@ -99,9 +97,9 @@ class Grafo:
     @staticmethod
     def calcula_distancia_total(solucao: List[Vertice]) -> float:
         """
-        Calcula a distância total de uma determinada solução
-            :param solucao: Solução cuja distância total deseja-se calcular.
-            :return: Distância total da solução
+        Calcula a distância total de uma determinada solução.
+            :param solucao: solução cuja distância total deseja-se calcular.
+            :return: distância total da solução.
         """
 
         distancia_total = 0
@@ -114,15 +112,14 @@ class Grafo:
         return distancia_total
 
     def salvar(self):
-        with open(self.filename_output, 'w') as f:
+        with open(self.saida, 'w') as f:
             linha = f'Distância percorrida: {self.distancia_solucao_corrente}\n'
             f.write(linha)
 
     def desenhar_solucao(self, name: str = 'Solução TSP'):
         """"
-        Desenha em gráfico caminho que é percorrido pela solução corrente
-            :param name: nome dado ao arquivo onde o desenho será salvo
-
+        Desenha em um plano cartesiano o caminho que é percorrido pela solução corrente.
+            :param name: nome dado ao arquivo onde o desenho será salvo.
         """
         plt.clf()
         plt.figure(figsize=(15, 15), dpi=100)
