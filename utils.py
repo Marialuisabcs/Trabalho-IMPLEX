@@ -1,6 +1,5 @@
 import math
 import random
-
 from typing import List
 
 
@@ -19,6 +18,7 @@ class Grafo:
         self.vertices = []
         self.solucao_corrente = None
         self.distancia_solucao_corrente = None
+        self.filename_output = None
 
     @staticmethod
     def gerar_grafo(arquivo):
@@ -36,6 +36,7 @@ class Grafo:
                 v = Vertice(label, x, y)
                 g.vertices.append(v)
 
+        g.filename_output = f'{arquivo[:-3]}out'
         return g
 
     def gerar_solucao_aleatoria(self) -> None:
@@ -104,3 +105,8 @@ class Grafo:
         distancia_total += Grafo.calcula_distancia(solucao[-1], solucao[0])
 
         return distancia_total
+
+    def salvar(self):
+        with open(self.filename_output, 'w') as f:
+            linha = f'Distância percorrida: {self.distancia_solucao_corrente}\n'
+            f.write(linha)
