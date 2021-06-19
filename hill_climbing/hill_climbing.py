@@ -1,11 +1,11 @@
-import os
-from typing import Union
 from utils import Grafo
 
 
 class HillClimbing:
-    def __init__(self, arquivo: Union[str, bytes, os.PathLike]):
-        self.grafo = Grafo.gerar_grafo(arquivo)
+    def __init__(self, grafo: Grafo, max_iter: int = 0):
+        self.grafo = grafo
+        self.max_iter = max_iter
+        self.i = 0
 
     def achar_melhor_vizinho(self, vizinho_generator):
         melhor_vizinho = next(vizinho_generator)
@@ -20,6 +20,9 @@ class HillClimbing:
 
         return melhor_vizinho, melhor_distancia
 
+    def continua(self):
+        return self.i < self.max_iter if self.max_iter else True
+
     def run(self):
         self.grafo.gerar_solucao_aleatoria()
         self.grafo.calcula_distancia_solucao_corrente()
@@ -27,20 +30,19 @@ class HillClimbing:
         vizinho_generator = self.grafo.vizinho_generator()
         melhor_vizinho, melhor_distancia = self.achar_melhor_vizinho(vizinho_generator)
 
-        while melhor_distancia < self.grafo.distancia_solucao_corrente:
+        while melhor_distancia < self.grafo.distancia_solucao_corrente and self.continua():
             self.grafo.solucao_corrente = melhor_vizinho
             self.grafo.distancia_solucao_corrente = melhor_distancia
 
             vizinho_generator = self.grafo.vizinho_generator()
             melhor_vizinho, melhor_distancia = self.achar_melhor_vizinho(vizinho_generator)
+            self.i += 1
 
         return self.grafo.solucao_corrente, self.grafo.distancia_solucao_corrente
 
 
 if __name__ == '__main__':
-    hc = HillClimbing('../dados/att48.tsp.txt')
-    sc, dsc = hc.run()
-    for v in sc:
-        print(v)
-
-    print(dsc)
+    grafo = Grafo.gerar_grafo('../dados/att48.tsp.txt')
+    hc = HillClimbing(grafo)
+    solucao, distancia = hc.run()
+    print(distancia)
