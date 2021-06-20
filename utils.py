@@ -116,13 +116,13 @@ class Grafo:
             linha = f'Distância percorrida: {self.distancia_solucao_corrente}\n'
             f.write(linha)
 
-    def desenhar_solucao(self, name: str = 'Solução TSP', save: bool = False):
+    def desenhar_solucao(self, name: str = 'Solução TSP', save: bool = False) -> plt.Figure:
         """"
         Desenha em um plano cartesiano o caminho que é percorrido pela solução corrente.
             :param name: nome dado ao arquivo onde o desenho será salvo.
             :param save: diz se o desenho deve ser salvo.
         """
-        fig = plt.figure(figsize=(15, 15), dpi=100)
+        fig: plt.Figure = plt.figure(figsize=(15, 15), dpi=100)
         x, y = [], []
         for vertice in self.solucao_corrente:
             x.append(vertice.x)
