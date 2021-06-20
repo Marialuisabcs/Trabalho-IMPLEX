@@ -3,6 +3,13 @@ from utils import Grafo
 import os
 
 
+def suppress_qt_warnings():
+    os.environ["QT_DEVICE_PIXEL_RATIO"] = "0"
+    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    os.environ["QT_SCREEN_SCALE_FACTORS"] = "1"
+    os.environ["QT_SCALE_FACTOR"] = "1"
+
+
 def is_type(tipo, valor):
     try:
         tipo(valor)
@@ -58,6 +65,28 @@ def inicializa():
     return grafo
 
 
+def finaliza(grafo):
+    print()
+
+    ver_figura = input('Deseja ver a figura com a soluçao (s/n)? ')
+    while ver_figura not in ('s', 'n'):
+        ver_figura = input('Por favor, digite um valor válido (s/n): ')
+
+    if ver_figura == 's':
+        fig = grafo.desenhar_solucao()
+        fig.show()
+
+    salvar = input('Deseja salvar esse resultado (s/n)? ')
+    while salvar not in ('s', 'n'):
+        salvar = input('Por favor, digite um valor válido (s/n): ')
+
+    if salvar == 's':
+        pass
+
+    else:
+        pass
+
+
 def simulated_annealing():
     print()
     print('\t\t\t\t  ===== Simulated Annealing =====')
@@ -77,6 +106,7 @@ def simulated_annealing():
     sa = SimulatedAnnealing(grafo, t_max, tx_resfria, t_min, max_iter)
     solucao, distancia = sa.run()
     print(f'Distância percorrida: {distancia}')
+    finaliza(sa.grafo)
 
 
 def hill_climbing():
@@ -93,6 +123,7 @@ def hill_climbing():
     hc = HillClimbing(grafo, max_iter)
     solucao, distancia = hc.run()
     print(f'Distância percorrida: {distancia}')
+    finaliza(hc.grafo)
 
 
 def main():
@@ -110,4 +141,5 @@ def main():
 
 
 if __name__ == '__main__':
+    suppress_qt_warnings()
     main()
