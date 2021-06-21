@@ -30,14 +30,14 @@ class HillClimbing:
     def continua(self) -> bool:
         """
         Determina se o algoritmo continua a busca por soluções melhores dado o índice da iteração atual.
-        :return: verdadeiro se não houver máximo de iterações ou o índice da itereçao atual for menor que o máximo.
+            :return: verdadeiro se não houver máximo de iterações ou o índice da iteração atual for menor que o máximo.
         """
         return self.i < self.max_iter if self.max_iter else True
 
     def run(self) -> Tuple[List[Vertice], float]:
         """
         Executa o algoritmo até achar a solução ótima local ou atingir o limite de iterações.
-        :return: solução ótima local e a distância percorrida.
+            :return: solução ótima local e a distância percorrida.
         """
         self.grafo.gerar_solucao_aleatoria()
         self.grafo.calcula_distancia_solucao_corrente()
