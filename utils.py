@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 
 class Vertice:
-    def __init__(self, label, x, y):
+    """Armazena informações de um vértice, sendo essas: rótulo, e coordenadas x, y no ponto cartesiano"""
+    def __init__(self, label: str, x: float, y: float):
         self.label = label
         self.x = x
         self.y = y
@@ -16,8 +17,9 @@ class Vertice:
 
 
 class Grafo:
+    """Armazena e faz operações rotineiras no grafo"""
     def __init__(self, entrada: Union[str, bytes, os.PathLike]):
-        self.vertices = []
+        self.vertices: List[Vertice] = []
         self.solucao_corrente: List[Vertice] = []
         self.distancia_solucao_corrente: float = 0
         self.entrada = entrada
@@ -40,7 +42,7 @@ class Grafo:
                 if linha:
                     label, x, y = linha
 
-                v = Vertice(label, x, y)
+                v = Vertice(str(label), x, y)
                 vertices.append(v)
 
         self.vertices = vertices
@@ -59,7 +61,7 @@ class Grafo:
         """
         self.distancia_solucao_corrente = self.calcula_distancia_total(self.solucao_corrente)
 
-    def troca_solucao_corrente(self, solucao, dist_solucao) -> Iterator[List[Vertice]]:
+    def troca_solucao_corrente(self, solucao: List[Vertice], dist_solucao: float) -> Iterator[List[Vertice]]:
         """
         Realiza a troca da atual solução corrente e gera seus vizinhos.
             :param solucao: nova solução corrente.
@@ -72,8 +74,9 @@ class Grafo:
 
     def vizinho_generator(self) -> Iterator[List[Vertice]]:
         """
-        Gera os vizinhos de uma determinada solução corrente.
-            :return: vizinho uma lista de vértices com um par de vértices trocados.O método retorna um viznho por vez.
+        Gera os vizinhos da solução corrente.
+            :return: um iterador contendo as listas de vértices dos vizinhos, com um par de vértices trocados
+                em relação à solução corrente.
         """
         for i in range(len(self.solucao_corrente)):
             for j in range(i + 1, len(self.solucao_corrente)):
@@ -118,7 +121,7 @@ class Grafo:
 
     def desenhar_solucao(self, name: str = 'Solução TSP', save: bool = False) -> plt.Figure:
         """"
-        Desenha em um plano cartesiano o caminho que é percorrido pela solução corrente.
+        Desenha, em um plano cartesiano, o caminho que é percorrido pela solução corrente.
             :param name: nome dado ao arquivo onde o desenho será salvo.
             :param save: diz se o desenho deve ser salvo.
         """
