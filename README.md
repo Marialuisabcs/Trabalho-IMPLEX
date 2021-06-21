@@ -1,4 +1,4 @@
-# Trabalho-IMPLEX
+# TSP com metaheurísticas
 
 ### Descrição
 TSP, o [problema do caixeiro viajante](https://pt.wikipedia.org/wiki/Problema_do_caixeiro-viajante) 
@@ -8,10 +8,10 @@ ajudar a encontrar, dentre uma quantidade finita de locais, qual o menor caminho
 possível que se pode percorrer para que o caixeiro atinga todas as localidades 
 retornando sempre ao seu ponto de origem. O problema é característico por 
 ser um [NP-completo](https://pt.wikipedia.org/wiki/NP-completo). 
-Utilizando as [metaheurísticas](https://pt.wikipedia.org/wiki/Meta-heur%C3%ADstica) 
-Hill Climbing e 
-[Simulated Annealing](https://pt.wikipedia.org/wiki/Simulated_annealing), 
-buscamos achar a solução mais próxima do ótimo global.
+Com o objetivo de encontrar a solução mais próxima do ótimo global,
+utilizamos as seguintes [metaheurísticas](https://pt.wikipedia.org/wiki/Meta-heur%C3%ADstica):
+[Hill Climbing](https://en.wikipedia.org/wiki/Hill_climbing) e 
+[Simulated Annealing](https://pt.wikipedia.org/wiki/Simulated_annealing).
 
 ### Vídeos explicativos
 - [Hill Climbing](https://www.youtube.com/watch?v=VIDEO_ID)
@@ -27,8 +27,7 @@ Inicialmente, instale as dependências executando o seguinte comando no terminal
 pip install -r requirements.txt
 ```
 São fornecidas 2 formas de execução:
-- Através de uma aplicação web
-  <br>
+- ### Através de uma aplicação web
   Abra o terminal no diretório raiz e execute o seguinte comando:
   ```
   streamlit run app.py
@@ -40,8 +39,7 @@ São fornecidas 2 formas de execução:
   Após fornecer os dados, aperte 'Executar', e veja o resultado.
   
 
-- Através do terminal
-  <br>
+- ### Através do terminal
   Abra o terminal no diretório raiz e execute o seguinte comando:
   ```
   python run.py
