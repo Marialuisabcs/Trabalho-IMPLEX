@@ -17,7 +17,7 @@ class SimulatedAnnealing:
 
     def resfria(self):
         """
-        Reduz a temperatura atual dada a taxa de resfriamento.
+        Reduz a temperatura atual de acordo com a taxa de resfriamento.
         """
         self.t_atual *= self.tx_resfria
 
@@ -41,8 +41,7 @@ class SimulatedAnnealing:
         while self.t_atual > self.t_min and self.i < self.max_iter:
             vizinho = next(vizinhos, None)
             if not vizinho:
-                vizinhos = self.grafo.vizinho_generator()
-                vizinho = next(vizinhos)
+                return self.grafo.solucao_corrente, self.grafo.distancia_solucao_corrente
 
             distancia_vizinho = Grafo.calcula_distancia_total(vizinho)
             distancia_corrente = self.grafo.distancia_solucao_corrente
@@ -62,7 +61,7 @@ class SimulatedAnnealing:
 def main():
     grafo = Grafo('../dados/att48.tsp.txt')
     grafo.ler_vertices()
-    sa = SimulatedAnnealing(grafo, 7, 0.995, 1e-8, 6000)
+    sa = SimulatedAnnealing(grafo, 7, 0.999999999, 1e-15, 100000)
     solucao, distancia = sa.run()
     print(distancia)
 
