@@ -1,6 +1,6 @@
 from typing import List, Iterator, Tuple
 
-from utils import Grafo, Vertice
+from metaheuristicas.utils import Grafo, Vertice
 
 
 class HillClimbing:

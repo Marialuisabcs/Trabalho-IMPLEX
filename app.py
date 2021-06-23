@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import os
 from metaheuristicas import HillClimbing, SimulatedAnnealing
-from utils import Grafo
+from metaheuristicas.utils import Grafo
 
 
 def main():

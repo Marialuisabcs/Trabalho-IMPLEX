@@ -2,7 +2,7 @@ import math
 import random
 from typing import Tuple, List
 
-from utils import Grafo, Vertice
+from metaheuristicas.utils import Grafo, Vertice
 
 
 class SimulatedAnnealing:

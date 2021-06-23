@@ -1,5 +1,5 @@
 from metaheuristicas import HillClimbing, SimulatedAnnealing
-from utils import Grafo
+from metaheuristicas.utils import Grafo
 import os
 
 
