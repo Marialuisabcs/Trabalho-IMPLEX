@@ -1,7 +1,6 @@
 import math
 import pandas as pd
 import streamlit as st
-import os
 from metaheuristicas import HillClimbing, SimulatedAnnealing
 from metaheuristicas.utils import Grafo
 
@@ -15,7 +14,8 @@ def main():
     }
 
     heuristica = st.sidebar.selectbox('Metaheurística', tuple(options_heuristica.keys()))
-    arquivos = os.listdir('dados')
+    arquivos = ['att48.tsp.txt', 'berlin52.tsp.txt', 'bier127.tsp.txt', 'eil101.tsp.txt', 'eil76.tsp.txt',
+                'kroA100.tsp.txt', 'kroE100.tsp.txt', 'pr76.tsp.txt', 'rat99.tsp.txt', 'st70.tsp.txt']
     entrada = st.sidebar.selectbox('Arquivo de entrada', arquivos)
     grafo = Grafo(f'dados/{entrada}')
     grafo.ler_vertices()
