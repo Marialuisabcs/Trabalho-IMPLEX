@@ -1,0 +1,11 @@
+metaheuristica : instancia : distancia : melhor_distancia : diferenca
+simulated annealing : att48 : 60581 : 10628 : 49953
+simulated annealing : berlin52 : 17558 : 7542 : 10016
+simulated annealing : bier127 : 416993 : 118282 : 298711
+simulated annealing : eil101 : 3178 : -1 : 3179
+simulated annealing : eil76 : 2109 : 538 : 1571
+simulated annealing : kroA100 : 115444 : 21282 : 94162
+simulated annealing : kroE100 : 83547 : 22068 : 61479
+simulated annealing : pr76 : 256840 : 108159 : 148681
+simulated annealing : rat99 : 6749 : 1211 : 5538
+simulated annealing : st70 : 2928 : 675 : 2253
