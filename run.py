@@ -35,6 +35,7 @@ def mostra_metaheuristicas():
 
 def mostra_arquivos():
     arquivos = os.listdir('dados')
+    arquivos.remove('solucoes.txt')
     for idx, arquivo in enumerate(arquivos):
         if idx % 3 == 0 and idx != 0:
             print()
@@ -76,22 +77,13 @@ def finaliza(grafo):
         fig = grafo.desenhar_solucao()
         fig.show()
 
-    salvar = input('Deseja salvar esse resultado (s/n)? ')
-    while salvar not in ('s', 'n'):
-        salvar = input('Por favor, digite um valor válido (s/n): ')
-
-    if salvar == 's':
-        pass
-
-    else:
-        pass
-
 
 def simulated_annealing():
     print()
     print('\t\t\t\t  ===== Simulated Annealing =====')
 
     grafo = inicializa()
+    instancia = grafo.entrada.split('/')[-1][:-8]
 
     print()
     print('===== Simulated Annealing: Definição de parâmetros =====')
@@ -105,7 +97,24 @@ def simulated_annealing():
 
     sa = SimulatedAnnealing(grafo, t_max, tx_resfria, t_min, max_iter)
     solucao, distancia = sa.run()
-    print(f'Distância percorrida: {distancia}')
+
+    melhores_solucoes = {
+        'att48': 10628,
+        'berlin52': 7542,
+        'bier127': 118282,
+        'eil76': 538,
+        'eil101': -1,
+        'kroA100': 21282,
+        'kroE100': 22068,
+        'pr76': 108159,
+        'rat99': 1211,
+        'st70': 675,
+    }
+    melhor_dist = melhores_solucoes[instancia]
+
+    print(f'Distância percorrida: {round(distancia)}')
+    print(f'Melhor distância para esta instância: {melhor_dist}')
+    print(f'Diferença: {round(distancia - melhor_dist)}')
     finaliza(sa.grafo)
 
 
