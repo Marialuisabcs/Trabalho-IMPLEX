@@ -23,7 +23,6 @@ class Grafo:
         self.solucao_corrente: List[Vertice] = []
         self.distancia_solucao_corrente: float = 0
         self.entrada = entrada
-        self.saida: str = f'{self.entrada[:-3]}out'
 
     def ler_vertices(self):
         """
@@ -114,13 +113,8 @@ class Grafo:
 
         return distancia_total
 
-    def salvar(self):
-        with open(self.saida, 'w') as f:
-            linha = f'Distância percorrida: {self.distancia_solucao_corrente}\n'
-            f.write(linha)
-
     def desenhar_solucao(self, name: str = 'Solução TSP', save: bool = False) -> plt.Figure:
-        """"
+        """
         Desenha, em um plano cartesiano, o caminho que é percorrido pela solução corrente.
             :param name: nome dado ao arquivo onde o desenho será salvo.
             :param save: diz se o desenho deve ser salvo.
