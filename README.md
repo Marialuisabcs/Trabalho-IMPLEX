@@ -15,7 +15,7 @@ utilizamos as seguintes [metaheurísticas](https://pt.wikipedia.org/wiki/Meta-he
 
 ### Vídeos explicativos
 - [Hill Climbing](https://www.youtube.com/watch?v=VIDEO_ID)
-- [Simulated annealing](https://www.youtube.com/watch?v=VIDEO_ID)
+- [Simulated annealing](https://www.youtube.com/watch?v=onbOzOTqvOE)
 
 ### Instruções de execução
 O trabalho foi feito utilizando a linguagem Python, na versão 3.9, portanto, 
