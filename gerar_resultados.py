@@ -8,6 +8,7 @@ def escreve_saida(metaheuristica, algoritmo, melhores_solucoes, instancia):
 
     line = f'{metaheuristica} : {instancia} : {distancia} : {melhor_dist} : {diferenca}\n'
     print(line)
+    
     with open('dados/solucoes.txt', 'a') as out:
         out.write(line)
 
