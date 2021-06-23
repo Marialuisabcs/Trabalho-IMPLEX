@@ -52,3 +52,34 @@ São fornecidas 2 formas de execução:
 
 ### Resultado do Hill Climbing em um dos casos de teste
 ![Resultado 1](static-readme/hill_climbing_result.png "Resultado 1")
+
+### Tabela com resultados obtidos
+- Simulated Annealing
+
+|instância|distância|melhor distância|diferença|
+|---------|---------|----------------|---------|
+|att48    |60581    |10628           |49953    |
+|berlin52 |17558    |7542            |10016    |
+|bier127  |416993   |118282          |298711   |
+|eil101   |3178     |n.d             |n.d      |
+|eil76    |2109     |538             |1571     |
+|kroA100  |115444   |21282           |94162    |
+|kroE100  |83547    |22068           |61479    |
+|pr76     |256840   |108159          |148681   |
+|rat99    |6749     |1211            |5538     |
+|st70     |2928     |675             |2253     |
+
+- Hill Climbing
+
+|instância|distância|melhor distância|diferença|
+|---------|---------|----------------|---------|
+|att48    |41343    |10628           |30715    |
+|berlin52 |9950     |7542            |2408     |
+|bier127  |187708   |118282          |69426    |
+|eil101   |1079     |n.d             |n.d      |
+|eil76    |872      |538             |334      |
+|kroA100  |41007    |21282           |19725    |
+|kroE100  |48942    |22068           |26874    |
+|pr76     |156365   |108159          |48206    |
+|rat99    |2062     |1211            |851      |
+|st70     |1069     |675             |394      |
