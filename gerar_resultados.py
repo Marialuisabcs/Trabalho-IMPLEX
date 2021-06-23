@@ -52,7 +52,7 @@ def main():
     }
 
     gera_resultados_sa(dados, melhores_solucoes)
-    # gera_resultados_hc(dados, melhores_solucoes)
+    gera_resultados_hc(dados, melhores_solucoes)
 
 
 if __name__ == '__main__':
