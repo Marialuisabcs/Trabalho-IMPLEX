@@ -14,7 +14,7 @@ utilizamos as seguintes [metaheurísticas](https://pt.wikipedia.org/wiki/Meta-he
 [Simulated Annealing](https://pt.wikipedia.org/wiki/Simulated_annealing).
 
 ### Vídeos explicativos
-- [Hill Climbing](https://www.youtube.com/watch?v=VIDEO_ID)
+- [Hill Climbing](https://youtu.be/beTzgbgd1CM)
 - [Simulated annealing](https://www.youtube.com/watch?v=onbOzOTqvOE)
 
 ### Instruções de execução
