@@ -66,7 +66,25 @@ def inicializa():
     return grafo
 
 
-def finaliza(grafo):
+def finaliza(grafo, instancia, distancia):
+    melhores_solucoes = {
+        'att48': 10628,
+        'berlin52': 7542,
+        'bier127': 118282,
+        'eil76': 538,
+        'eil101': -1,
+        'kroA100': 21282,
+        'kroE100': 22068,
+        'pr76': 108159,
+        'rat99': 1211,
+        'st70': 675,
+    }
+    melhor_dist = melhores_solucoes[instancia]
+
+    print(f'Distância percorrida: {round(distancia)}')
+    print(f'Melhor distância para esta instância: {melhor_dist}')
+    print(f'Diferença: {round(distancia - melhor_dist)}')
+
     print()
 
     ver_figura = input('Deseja ver a figura com a soluçao (s/n)? ')
@@ -98,24 +116,7 @@ def simulated_annealing():
     sa = SimulatedAnnealing(grafo, t_max, tx_resfria, t_min, max_iter)
     solucao, distancia = sa.run()
 
-    melhores_solucoes = {
-        'att48': 10628,
-        'berlin52': 7542,
-        'bier127': 118282,
-        'eil76': 538,
-        'eil101': -1,
-        'kroA100': 21282,
-        'kroE100': 22068,
-        'pr76': 108159,
-        'rat99': 1211,
-        'st70': 675,
-    }
-    melhor_dist = melhores_solucoes[instancia]
-
-    print(f'Distância percorrida: {round(distancia)}')
-    print(f'Melhor distância para esta instância: {melhor_dist}')
-    print(f'Diferença: {round(distancia - melhor_dist)}')
-    finaliza(sa.grafo)
+    finaliza(sa.grafo, instancia, distancia)
 
 
 def hill_climbing():
@@ -123,6 +124,7 @@ def hill_climbing():
     print('\t\t\t\t  ===== Hill Climbing =====')
 
     grafo = inicializa()
+    instancia = grafo.entrada.split('/')[-1][:-8]
 
     print('===== Hill Climbing: Definição de parâmetros =====')
 
@@ -131,8 +133,8 @@ def hill_climbing():
 
     hc = HillClimbing(grafo, max_iter)
     solucao, distancia = hc.run()
-    print(f'Distância percorrida: {distancia}')
-    finaliza(hc.grafo)
+
+    finaliza(hc.grafo, instancia, distancia)
 
 
 def main():
