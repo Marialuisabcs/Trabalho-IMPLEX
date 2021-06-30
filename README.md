@@ -28,7 +28,11 @@ pip install -r requirements.txt
 ```
 São fornecidas 2 formas de execução:
 - ### Através de uma aplicação web
-  Abra o terminal no diretório raiz e execute o seguinte comando:
+  Instale a biblioteca _streamlit_ usando o comando:
+  ```
+  pip install streamlit
+  ```
+  Depos, abra o terminal no diretório raiz e execute o seguinte comando:
   ```
   streamlit run app.py
   ```
