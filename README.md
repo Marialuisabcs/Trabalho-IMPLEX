@@ -13,7 +13,7 @@ utilizamos as seguintes [metaheurísticas](https://pt.wikipedia.org/wiki/Meta-he
 [Hill Climbing](https://en.wikipedia.org/wiki/Hill_climbing) e 
 [Simulated Annealing](https://pt.wikipedia.org/wiki/Simulated_annealing).
 
-### Vídeos explicativos
+### Vídeos explicativos (autorais)
 - [Hill Climbing](https://youtu.be/beTzgbgd1CM)
 - [Simulated annealing](https://www.youtube.com/watch?v=onbOzOTqvOE)
 
@@ -32,7 +32,7 @@ São fornecidas 2 formas de execução:
   ```
   pip install streamlit
   ```
-  Depos, abra o terminal no diretório raiz e execute o seguinte comando:
+  Depois, abra o terminal no diretório raiz e execute o seguinte comando:
   ```
   streamlit run app.py
   ```
@@ -51,11 +51,14 @@ São fornecidas 2 formas de execução:
   Depois disso, basta fornecer os dados conforme forem solicitados via linha de comando.
   
 
-### Resultado do Simulated Annealing em um dos casos de teste
-![Resultado 1](static-readme/simulated_annealing_result.png "Resultado 1")
+### Melhor caminho possível para a instância att48.tsp ([fonte](http://elib.zib.de/pub/mp-testdata/tsp/tsplib/tsp/att48.opt.tour))
+![Resultado 0](static-readme/best_result_att48.png "Resultado 0")
 
-### Resultado do Hill Climbing em um dos casos de teste
-![Resultado 1](static-readme/hill_climbing_result.png "Resultado 1")
+### Melhor caminho encontrado pelo Simulated Annealing para a instância att48.tsp
+![Resultado 1](static-readme/simulated_annealing_result_att48.png "Resultado 1")
+
+### Melhor caminho encontrado pelo Hill Climbing para a instância att48.tsp
+![Resultado 2](static-readme/hill_climbing_result_att48.png "Resultado 2")
 
 ### Tabela com resultados obtidos
 - Simulated Annealing
